@@ -22,10 +22,10 @@ class Book(models.Model):
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
-    ISBN = models.CharField(max_length=50)
+    book_description = models.CharField(max_length=500)
     publisher = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images', blank=True)
-    price = models.PositiveBigIntegerField()
+    price = models.FloatField()
 
     def __str__(self):
         return str(self.id)
