@@ -1,6 +1,118 @@
 {% extends 'layout/index.html' %}
+
 {% block title %}
-    Register | Books Web Shopping
+    Home | Books Web Shopping
 {% endblock title %}
 {% block content %}
+<div class = "container" style="margin-top: 70px; min-height: 600px;">
+    <div class="row">
+    
+     <div class="col-12">
+        <h4 class="mb-3" style="color: black; text-align: center;">Sign Up</h4>
+        <hr class = "border border-warning border-3">
+     </div>
+    </div>
+ 
+    
+    <section class="py-1 mt-1">
+        <div class = "container" >
+         {% if registered %}
+           <h2>Thank you for registering</h2>
+         {% else %}  
+            <div class="row">
+
+            <div class="col-6">
+               <form method="post" action="">
+                {% csrf_token %}
+                     <div class="mb-4">
+                       <label for="" class="form-label">User Name</label> 
+                       {{form.username}}
+                       {% if form.errors.username %}
+                       <label class="text-danger">{{form.errors.username}}</label>
+                       {% endif %}
+
+                     
+                     </div>
+                     <div>
+                        <label for="" class="form-label">First Name</label> 
+                       {{form.firstname}}
+                       {% if form.errors.firstname %}
+                       <label class="text-danger">{{form.errors.firstname}}</label>
+                       {% endif %}
+
+                    
+                     </div>
+
+                     <div>
+                        <label for="" class="form-label">Last Name</label> 
+                       {{form.lastname}}
+                       {% if form.errors.lastname %}
+                       <label class="text-danger">{{form.errors.lastname}}</label>
+                       {% endif %}
+
+                    
+                     </div>
+ 
+
+ 
+
+                    <div class="mb-4">
+                        <label for="" class="form-label">Email Id</label>
+                     {{form.email}}
+                     {% if form.errors.email %}
+                     <label class="text-danger">{{form.errors.email}}</label>
+                     {% endif %}
+
+                    </div>
+<!-- 
+                    <div class="mb-4">
+                        <label for="" class="form-label">Phone Number</label>
+                     {{form.phone}}
+                     {% if form.errors.phone %}
+                     <label class="text-danger">{{form.errors.phone}}</label>
+                     {% endif %}
+
+                    </div> -->
+
+
+                
+
+                    <div class="mb-4">
+                        <label for="" class="form-label">Password</label>
+                    {{form.password1}}
+                    {% if form.errors.password1 %}
+                    <label class="text-danger">{{form.errors.password1}}</label>
+                    {% endif %}
+
+                    </div>
+
+                   <div class="mb-4">
+                    <label for="" class="form-label">Confirm Password</label>
+                   {{form.password2}}
+                  
+                   {% if form.errors.password2 %}
+                   <label class="text-danger">{{form.errors.password2}}</label>
+                   {% endif %}
+
+                   </div>
+
+                   {{profile_form.as_p}}
+                  
+
+            <div class="mb-4">
+            <button type="submit" class="btn btn-warning">Register</button>
+        </div>
+
+    </form>
+
+    <p class = "my-2">Already user?<a href ="#">Login now</a></p>
+  </div>
+ </div>
+ {% endif %}
+</div>
+
+</section>
+    
+
 {% endblock %}
+
