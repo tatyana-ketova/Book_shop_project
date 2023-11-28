@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from django.shortcuts import render, get_object_or_404
-from .models import Book
+from .models import Book, Category
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.db.models import Q
@@ -11,8 +11,15 @@ def home(request):
 
 
 def main(request):
-    books = Book.objects.all()
-    books_per_page = 8  # You can adjust this number based on your preference
+    categories = Category.objects.all()
+    selected_category = request.GET.get('category')
+
+    if selected_category:
+        books = Book.objects.filter(category_id=selected_category)
+    else:
+        books = Book.objects.all()
+
+    books_per_page = 8
 
     paginator = Paginator(books, books_per_page)
     page = request.GET.get('page')
@@ -26,7 +33,7 @@ def main(request):
 
         books = paginator.page(paginator.num_pages)
 
-    return render(request, 'layout/main.html', {'books': books})
+    return render(request, 'layout/main.html', {'books': books, 'categories': categories})
 
 
 def book_detail(request, book_id):
