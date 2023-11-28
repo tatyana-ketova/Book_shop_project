@@ -7,9 +7,9 @@
     
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <ul class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      </form>
+        <form class="d-flex" role="search" action="{% url 'search_results' %}" method="get">
+          <input name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form>
         <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-home"></i>Home</a>
         <a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i>Cart</a>
         <a class="nav-link" href="#"><i class="fa fa-user"></i>SignUp</a>
