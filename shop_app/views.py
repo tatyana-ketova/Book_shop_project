@@ -36,10 +36,9 @@ def book_detail(request, book_id):
 
 class SearchResultsView(ListView):
     model = Book
-    template_name = 'layout/main.html'
     context_object_name = 'books'
     ordering = ['title']
-    paginate_by = 6
+    #TODO paginate_by = 6
 
     def get_queryset(self):
         query = self.request.GET.get("q")
