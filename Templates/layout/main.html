@@ -7,21 +7,23 @@
 
     <div class="container mt-5">
 
-    <h2>Book List</h2>
+    <h2>PLACE FOR FILTER</h2>
     <div class="row">
         {% for book in books %}
         <div class="col-md-3 mb-4">
             <div class="card">
                 {% if book.image %}
+                    <a href="{% url 'book_detail' book_id=book.id %}">
                     <img src="{{ book.image.url }}" class="card-img-top" alt="{{ book.title }}">
+                    </a>
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title"><a href="{% url 'book_detail' book_id=book.id %} " class="text-reset text-decoration-none">{{ book.title }}</a></h5>
+                    <h5 class="card-title"><strong><a href="{% url 'book_detail' book_id=book.id %} " class="text-reset text-decoration-none">{{ book.title }}</a></strong></h5>
 
-                    <p class="card-text"><strong>Category:</strong> {{ book.category_id.category_name }}</p>
-                    <p class="card-text"><strong>Author:</strong> {{ book.author }}</p>
-                    <p class="card-text"><strong>Publisher:</strong> {{ book.publisher }}</p>
-                    <p class="card-text"><strong>Price:</strong> SEK {{ book.price }}</p>
+                    <p class="card-text">Category:<strong> {{ book.category_id.category_name }}</strong></p>
+                    <p class="card-text">Author:<strong> {{ book.author }}</strong></p>
+                    <p class="card-text">Publisher:<strong> {{ book.publisher }}</strong></p>
+                    <p class="card-text">Price:<strong> SEK {{ book.price }}</strong></p>
                     <button type="button" class="btn btn-warning">Add to cart</button>
 
 

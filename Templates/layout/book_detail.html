@@ -1,6 +1,6 @@
 {% extends 'layout/index.html' %}
 {% block title %}
-    Main | Books Web Shopping
+    Main | Books Web Shopping | {{ book.title }}
 {% endblock title %}
 {% block content %}
 <div class="container" style = "margin-top:70px;">
@@ -15,15 +15,16 @@
         </div>
         <div class="col-md-9">
     <h2>{{ book.title }}</h2>
-    <p><strong>Author:</strong> {{ book.author }}</p>
-    <p><strong>Publisher:</strong> {{ book.publisher }}</p>
-    <p><strong>Price:</strong> ${{ book.price }}</p>
-    <p><strong>Category:</strong> {{ book.category_id.category_name }}</p>
+    <p>Author:<strong> {{ book.author }}</strong></p>
+    <p>Publisher:<strong> {{ book.publisher }}</strong></p>
+    <p>Price:<strong> ${{ book.price }}</strong></p>
+    <p>Category:<strong> {{ book.category_id.category_name }}</strong></p>
     <p>{{ book.book_description }}</p>
 
 
-
-    <a href="" class="btn btn-primary">Back to Book List</a>
+    <label for="count">Quantity:</label>
+    <input type="number" id="count" min="1" max="9" />
+    <button type="button" class="btn btn-warning">Add to cart</button>
             </div>
 </div>
 </div>
