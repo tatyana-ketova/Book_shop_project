@@ -13,11 +13,19 @@ def home(request):
 def main(request):
     categories = Category.objects.all()
     selected_category = request.GET.get('category')
+    search_query = request.GET.get('search')
 
     if selected_category:
         books = Book.objects.filter(category_id=selected_category)
     else:
         books = Book.objects.all()
+    if search_query:
+
+        books = books.filter(
+            Q(title__icontains=search_query) |
+            Q(book_description__icontains=search_query)|
+            Q(author__icontains=search_query)
+        )
 
     books_per_page = 8
 
@@ -41,6 +49,9 @@ def book_detail(request, book_id):
     return render(request, 'layout/book_detail.html', {'book': book})
 
 
+
+
+'''
 class SearchResultsView(ListView):
     model = Book
     context_object_name = 'books'
@@ -54,8 +65,11 @@ class SearchResultsView(ListView):
             | Q(author__icontains=query)
         )
         return object_list
+       
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['query'] = self.request.GET.get('q')
         return context
+       
+'''
