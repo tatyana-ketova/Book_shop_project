@@ -5,9 +5,31 @@
 {% block content %}
 <div class="container" style = "margin-top:70px;">
 
-    <div class="container mt-5">
+<div class="container">
+<form method="get" class="mb-3">
+<div class="row">
+<div class="col-md-3">
+        <label for="category"></label>
+        <select name="category" id="category" class="form-control">
+            <option value="" {% if not selected_category %}selected{% endif %}>All Categories</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if category.id == selected_category %}selected{% endif %}>{{ category.category_name }}</option>
+            {% endfor %}
+        </select>
+</div>
+<div class="col-md-3">
+        <button type="submit" class="btn btn-warning mt-4">Apply Filter</button>
+</div>
+<div class="col-md-6"></div>
+</div>
+    </form>
 
-    <h2>PLACE FOR FILTER</h2>
+</div>
+
+
+    <div class="container mt-2">
+
+
     <div class="row">
         {% for book in books %}
         <div class="col-md-3 mb-4">
