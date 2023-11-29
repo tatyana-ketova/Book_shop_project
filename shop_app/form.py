@@ -5,31 +5,17 @@ from shop_app.models import Customer
 
 
 class CustomUserForm(forms.ModelForm):
-    '''
-    username = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter User Name'}))
-    firstname = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter First Name'}))
-    lastname = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Last Name'}))
-
-    email = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter email id'}))
-    password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter Password'}))
-    password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Re-enter password'}))
-    phone = forms.CharField(
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Phone Number'}))
-'''
-
-    password = forms.CharField(widget=forms.PasswordInput())
-
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Enter Password'}))
+    lastname = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter Last name'}))
+    firstname = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter First name'}))
+    email = forms.CharField(widget=forms.EmailInput(attrs={'class':'form-control','placeholder':'Enter email id'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter user name'}))
     class Meta():
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password']
+        fields = ['username','first_name','last_name','email','password']
 
 
 class Userprofile(forms.ModelForm):
     class Meta():
         model = Customer
-        fields = ('phone', 'image')
+        fields = ['phone']

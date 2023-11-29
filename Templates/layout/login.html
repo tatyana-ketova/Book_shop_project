@@ -18,7 +18,7 @@
         <div class = "card p-3 border-warning">
             <div class="row">
                 <div class="col-6">
-                    <form method="post" action="">
+                    <form method="post" action="{% url 'login' %}">
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="">User Name</label>
@@ -27,7 +27,7 @@
 
                         <div class="mb-3">
                             <label for="">Password</label>
-                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter username">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
 
                            
                         </div>
@@ -40,25 +40,7 @@
         </div>
     </section>
 </div>
-
-
-
-<div class="jumbotron">
-
-<h2>Please log in</h2>
-    <form method="POST" action="{% url 'login' %}">
-        {% csrf_token %}
-
-        <label for="username">Username
-        <input type="text" name="username" placeholder="Enter Username"></label>
-        <label for="password">Password
-        <input type="password" name="password"></label>
-        <input type="submit" value="login">
-
-    </form>
-
-
-
-</div>
-
 {% endblock %}
+
+
+

@@ -12,8 +12,6 @@ def main(request):
     return render(request, 'layout/main.html')
 
 
-#def login(request):
-    #return render(request, 'layout/Login.html')
 @login_required()
 def user_logout(request):
     logout(request)
@@ -35,11 +33,12 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
 
-            if 'image' in request.FILES:
-                profile.image = request.FILES["image"]
 
             profile.save()
             registered = True
+            messages.success(request,'Registeration Success you can Login Now!')
+            return redirect('login')
+ 
         else:
             print(form.errors, profile_form.errors)
     else:
@@ -64,6 +63,8 @@ def user_login(request):
                 login(request, user)
 
                 print("Username: {} and password: {}".format(username, password))
+                messages.success(request,"You have logged in successfully")
+
                 return HttpResponseRedirect(reverse('main'))
 
 
@@ -72,7 +73,7 @@ def user_login(request):
         else:
             print("Someone try to login and failed")
             print("Username:{} and password{}".format(username, password))
-            return HttpResponse("invalid login and password")
+            messages.success(request,"invalid login and password")
 
     else:
         return render(request, 'layout/login.html', {})
