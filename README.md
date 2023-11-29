@@ -1,4 +1,5 @@
 Here it might be good idea to mention features of the project:
+
 1- Template html/css/view designs
 2- Model definitions for dbase tables needed
 3- User register/login/logout
