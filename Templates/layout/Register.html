@@ -3,4 +3,113 @@
     Register | Books Web Shopping
 {% endblock title %}
 {% block content %}
+    <div class="container" style="margin-top:70px;min-height:600px;">
+        <div class="row">
+            <div class="col-12">
+                <div class="border-bottom border-warning">
+                   <h5 class="mt-4" style="font-size: 20px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-weight: bolder;">Registeration</h5>
+                   {% include 'basepage/message.html' %}
+                </div>
+            </div>
+        </div>
+        <section class="py-3 mt-1">
+            <div class = "card p-3 border-warning border-5">
+                {% if registered %}
+                     <h2>Thank you for registering</h2>
+                {% else %}  
+                <div class="row">
+                    <div class="col-6">
+                        <form enctype="multipart/form-data" method="post" action="">
+                            {% csrf_token %}
+
+                             <div class="row mb-3">
+                            <label for="" class="col-sm-3 col-form-label">Username</label>
+                                <div class="col-sm-9">
+                            <input type="text" name="username" class="form-control">
+                             {% if form.errors.username %}
+                             <label class="text-danger">{{ form.errors.username }}</label>
+                             {% endif %}
+                                </div>
+                             </div>
+
+                             <div class="row mb-3">
+                            <label for="" class="col-sm-3 col-form-label">First Name</label>
+                                <div class="col-sm-9">
+                            <input type="text" name="first_name" class="form-control">
+                             {% if form.errors.first_name %}
+                             <label class="text-danger">{{ form.errors.first_name }}</label>
+                             {% endif %}
+                                </div>
+                             </div>
+ 
+                            <div class="row mb-3">
+                            <label for="" class="col-sm-3 col-form-label">Last Name</label>
+                                <div class="col-sm-9">
+                            <input type="text" name="last_name" class="form-control">
+                             {% if form.errors.last_name %}
+                             <label class="text-danger">{{ form.errors.last_name }}</label>
+                             {% endif %}
+                                </div>
+                             </div>
+ 
+                         <div class="row mb-3">
+                            <label for="" class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                            <input type="email" name="email" class="form-control">
+                             {% if form.errors.email %}
+                             <label class="text-danger">{{ form.errors.email }}</label>
+                             {% endif %}
+                                </div>
+                             </div>
+
+
+                            <div class="row mb-3">
+                            <label for="" class="col-sm-3 col-form-label">Password</label>
+                                <div class="col-sm-9">
+                            <input type="password" name="password" class="form-control">
+                             {% if form.errors.password %}
+                             <label class="text-danger">{{ form.errors.password }}</label>
+                             {% endif %}
+                                </div>
+                             </div>
+
+
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-3 col-form-label">Confirm Password</label>
+                                <div class="col-sm-9">
+                            <input type="password" name="password" class="form-control">
+                             {% if form.errors.password %}
+                             <label class="text-danger">{{ form.errors.password }}</label>
+                             {% endif %}
+                                </div>
+                             </div>
+
+
+
+
+
+                       <div class="row mb-3">
+                       <label for="phone" class="col-sm-3 col-form-label">Phone Number</label>
+                       <div class="col-sm-9">
+                        <input type="text" id="phone" name="phone" class="form-control">
+                        {% if profile_form.errors.phone %}
+                         <label class="text-danger">{{ profile_form.errors.phone }}</label>
+                       {% endif %}
+                          </div>
+                          </div>
+ 
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-warning">Register</button>
+                            </div>
+                        </form>
+                        <p class = "my-2">Already user?<a href ="{% url 'login' %}">Login Now</a></p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+       
+    </div>
 {% endblock %}
+ 
+ 
