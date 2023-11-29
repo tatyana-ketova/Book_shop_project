@@ -1,14 +1,16 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from shop_app.form import CustomUserForm, Userprofile
+from django.contrib import messages
+from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from .models import Book, Category
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.db.models import Q
-
-def home(request):
-    return render(request, 'layout/index.html')
-
 
 def main(request):
     categories = Category.objects.all()
@@ -20,10 +22,9 @@ def main(request):
     else:
         books = Book.objects.all()
     if search_query:
-
         books = books.filter(
             Q(title__icontains=search_query) |
-            Q(book_description__icontains=search_query)|
+            Q(book_description__icontains=search_query) |
             Q(author__icontains=search_query)
         )
 
@@ -49,27 +50,68 @@ def book_detail(request, book_id):
     return render(request, 'layout/book_detail.html', {'book': book})
 
 
+@login_required()
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('main'))
+
+def register(request):
+    registered = False
+
+    if request.method == "POST":
+        form = CustomUserForm(data=request.POST)
+        profile_form = Userprofile(data=request.POST)
+
+        if form.is_valid() and profile_form.is_valid():
+
+            user = form.save()
+            user.set_password(user.password)
+            user.save()
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
 
 
-'''
-class SearchResultsView(ListView):
-    model = Book
-    context_object_name = 'books'
-    ordering = ['title']
-    #TODO paginate_by = 6
+            profile.save()
+            registered = True
+            messages.success(request,'Registeration Success you can Login Now!')
+            return redirect('login')
 
-    def get_queryset(self):
-        query = self.request.GET.get("q")
-        object_list = Book.objects.filter(
-            Q(title__icontains=query) | Q(book_description__icontains=query)
-            | Q(author__icontains=query)
-        )
-        return object_list
-       
+        else:
+            print(form.errors, profile_form.errors)
+    else:
+        form = CustomUserForm()
+        profile_form = Userprofile()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['query'] = self.request.GET.get('q')
-        return context
-       
-'''
+    return render(request, 'layout/register.html',
+                  {'form': form, 'profile_form': profile_form, 'registered': registered})
+
+
+def user_login(request):
+    if request.method == 'POST':
+
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        print("Username: {} and password: {}".format(username, password))
+
+        if user:
+            if user.is_active:
+                login(request, user)
+
+                print("Username: {} and password: {}".format(username, password))
+                messages.success(request,"You have logged in successfully")
+
+                return HttpResponseRedirect(reverse('main'))
+
+
+            else:
+                return HttpResponse('Account not active')
+        else:
+            print("Someone try to login and failed")
+            print("Username:{} and password{}".format(username, password))
+            messages.success(request,"invalid login and password")
+
+    else:
+        return render(request, 'layout/login.html', {})

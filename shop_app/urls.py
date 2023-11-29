@@ -8,7 +8,10 @@ urlpatterns = [
 
     path('', views.main, name="main"),
     path('layout/<int:book_id>/', views.book_detail, name='book_detail'),
-    #path('search/', SearchResultsView.as_view(template_name='layout/main.html'), name="search_results"),
+    path('register',views.register,name="register"),
+    path('login',views.user_login,name="login"),
+    path('logout/', views.user_logout, name='logout'),
+
 ]
 
 if settings.DEBUG:
