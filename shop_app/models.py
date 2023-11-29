@@ -27,6 +27,9 @@ class Book(models.Model):
     image = models.ImageField(upload_to='images', blank=True)
     price = models.FloatField()
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         return str(self.id)
 
