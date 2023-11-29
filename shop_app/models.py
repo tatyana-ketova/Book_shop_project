@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.PositiveSmallIntegerField()
-    image = models.ImageField(default='default.jpg',upload_to='profile_pics')
 
 
     def __str__(self):
