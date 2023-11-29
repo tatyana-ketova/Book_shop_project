@@ -5,4 +5,23 @@
 {% block content %}
 <h1 style="margin-top: 70px;">Login</h1>
 
+
+<div class="jumbotron">
+
+<h2>Please log in</h2>
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <label for="username">Username
+        <input type="text" name="username" placeholder="Enter Username"></label>
+        <label for="password">Password
+        <input type="password" name="password"></label>
+        <input type="submit" value="login">
+
+    </form>
+
+
+
+</div>
+
 {% endblock %}
