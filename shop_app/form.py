@@ -11,17 +11,19 @@ class customUserForm(UserCreationForm):
     email = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter email id'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Enter Password'}))
     password2= forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Re-enter password'}))
-    phone = forms.CharField(widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Enter Phone Number'}))
 
     class Meta:
+       
         model = User
         fields = ['username','firstname','lastname','email','password1','password2']
+    def __str__(self):
+        return(self.username,self.firstname,self.lastname) 
 
 class userprofile(forms.ModelForm):
 
     class Meta():
         model = Customer
-        fields =('phone','image')
+        fields =('phone',)
 
 
 
