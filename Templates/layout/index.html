@@ -15,14 +15,15 @@
       <main role="main" class="container">
       <div class="row">
           <div class="col-md-12">
+          <br><br><br>
           {% if messages %}
-              <br><br><br>
               <hr>
               {% for msg in messages %}
                   <div class='alert alert{{ msg.tags}}'>
                       {{ msg }}
                   </div>
               {% endfor %}
+              <hr>
           {% endif %}
           {% block content %}{% endblock %}
           </div>
