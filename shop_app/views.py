@@ -12,6 +12,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.db.models import Q
 
+
 def main(request):
     categories = Category.objects.all()
     selected_category = request.GET.get('category')
@@ -55,6 +56,7 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('main'))
 
+
 def register(request):
     registered = False
 
@@ -71,10 +73,9 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
 
-
             profile.save()
             registered = True
-            messages.success(request,'Registeration Success you can Login Now!')
+            messages.success(request, 'Registeration Success you can Login Now!')
             return redirect('login')
 
         else:
@@ -101,7 +102,7 @@ def user_login(request):
                 login(request, user)
 
                 print("Username: {} and password: {}".format(username, password))
-                messages.success(request,"You have logged in successfully")
+                messages.success(request, "You have logged in successfully")
 
                 return HttpResponseRedirect(reverse('main'))
 
@@ -111,7 +112,8 @@ def user_login(request):
         else:
             print("Someone try to login and failed")
             print("Username:{} and password{}".format(username, password))
-            messages.success(request,"invalid login and password")
+            messages.success(request, "invalid login and password")
+            return HttpResponseRedirect(reverse('login')) #i need to add it to main
 
     else:
         return render(request, 'layout/login.html', {})
