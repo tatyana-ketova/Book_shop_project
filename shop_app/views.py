@@ -12,6 +12,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.db.models import Q
 
+
 def main(request):
     categories = Category.objects.all()
     selected_category = request.GET.get('category')
@@ -55,6 +56,7 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('main'))
 
+
 def register(request):
     registered = False
 
@@ -63,19 +65,24 @@ def register(request):
         profile_form = Userprofile(data=request.POST)
 
         if form.is_valid() and profile_form.is_valid():
+            password = form.cleaned_data['password']
+            confirm_password = form.cleaned_data['confirm_password']
 
-            user = form.save()
-            user.set_password(user.password)
-            user.save()
+            user = form.save(commit=False)
 
-            profile = profile_form.save(commit=False)
-            profile.user = user
+            if password == confirm_password:
+                user.set_password(password)
+                user.save()
 
+                profile = profile_form.save(commit=False)
+                profile.user = user
+                profile.save()
 
-            profile.save()
-            registered = True
-            messages.success(request,'Registeration Success you can Login Now!')
-            return redirect('login')
+                registered = True
+                messages.success(request, 'Registration successful. You can now login.')
+                return redirect('login')
+            else:
+                messages.error(request, 'Passwords do not match.')
 
         else:
             print(form.errors, profile_form.errors)
@@ -100,18 +107,16 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
 
-                print("Username: {} and password: {}".format(username, password))
-                messages.success(request,"You have logged in successfully")
+                messages.success(request, "You have logged in successfully")
 
                 return HttpResponseRedirect(reverse('main'))
-
 
             else:
                 return HttpResponse('Account not active')
         else:
-            print("Someone try to login and failed")
-            print("Username:{} and password{}".format(username, password))
-            messages.success(request,"invalid login and password")
+
+            messages.success(request, "invalid login and password")
+            return HttpResponseRedirect(reverse('login'))  # i need to add it to main
 
     else:
         return render(request, 'layout/login.html', {})
