@@ -1,0 +1,63 @@
+{% extends 'layout/index.html' %}
+{% block title %}
+    Cart | Books Web Shopping | {{ book.title }}
+{% endblock title %}
+{% block content %}
+<section class="bg-light py-4 my-5" style="min-height:600px">
+    <div class="container">
+        <div class="row">
+            <h5 class="mb-3">Cart Items</h5>
+            <hr class="border border-warning border-5">
+        </div>
+        <table class="table">
+            <tr>
+                <th>Image</th>
+                <th>Book Name</th>
+                <th>Cost</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+                <th>Remove </th>
+
+            </tr>
+             {% for item in cart %}
+             <tr>
+                 <td><img src="{{item.book.image.url}}" height="75px" alt="{{item.book.title}}"> </td>
+                 <td>{{item.book.title}}</td>
+                 <td>{{item.book.price | stringformat:'d'}}</td>
+                 <td>{{item.book_qty}}</td>
+                 <td class="amt">{{item.total_cost| stringformat:'d'}}</td>
+                 <td><a href="{% url 'remove_cart' item.id %}" onclick="return confirm('Are you sure? To Remove')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>Remove</a></td>
+             </tr>
+             {% endfor %}
+             <tr>
+                 <td></td> 
+                 <td></td>
+                 <td colspan="2"><b>Total Amount</b></td>
+                 <td id="net">0</td>
+                 <td></td>
+            </tr>
+            <tr>
+                 <td></td> 
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td><button class="btn btn-success"><a href="{% url 'order' %}" style="text-decoration: none;font-size: larger;color:white">Check Out</a></button></td>
+            </tr>
+            
+        </table>
+    </div>
+    
+</div>
+
+</section>
+<script>
+    const nodes= document.querySelectorAll('.amt');
+    const arr = Array.from(nodes);
+    const res = arr.reduce((acc, curr) => {
+    return acc+= Number(curr.textContent)
+    },0);
+    document.getElementById("net").innerHTML="SEK "+res;
+</script>
+
+{% endblock %}

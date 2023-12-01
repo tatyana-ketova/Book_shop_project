@@ -9,7 +9,7 @@ class Customer(models.Model):
 
 
     def __str__(self):
-        return self.user.username
+        return self.user.id
 
 
 class Category(models.Model):
@@ -24,6 +24,8 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     book_description = models.CharField(max_length=500)
+    quantity = models.IntegerField(null=False,blank=False)
+    trending= models.BooleanField(default=False,help_text="0-default,1-trending")
     publisher = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images', blank=True)
     price = models.FloatField()
@@ -58,3 +60,18 @@ class Payment(models.Model):
 
     def __str__(self):
         return str(self.order_id)
+
+class Cart(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    book = models.ForeignKey(Book,on_delete=models.CASCADE)
+    book_qty = models.IntegerField(null=False,blank=False)
+    created_at= models.DateTimeField(auto_now_add=True)
+
+    @property
+    def total_cost(self):
+        return self.book_qty*self.book.price
+
+class Favourite(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    book = models.ForeignKey(Book,on_delete=models.CASCADE)
+    created_at= models.DateTimeField(auto_now_add=True)

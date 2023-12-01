@@ -21,6 +21,7 @@
         <button type="submit" class="btn btn-warning mt-4">Apply Filter</button>
 </div>
 <div class="col-md-6"></div>
+ {% include 'basepage/message.html' %}
 </div>
     </form>
 
@@ -46,7 +47,6 @@
                     <p class="card-text">Author:<strong> {{ book.author }}</strong></p>
                     <p class="card-text">Publisher:<strong> {{ book.publisher }}</strong></p>
                     <p class="card-text">Price:<strong> SEK {{ book.price }}</strong></p>
-                    <button type="button" class="btn btn-warning">Add to cart</button>
 
 
                 </div>

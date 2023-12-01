@@ -10,20 +10,22 @@
         <form class="d-flex" role="search" action="{% url 'main' %}" method="get">
           <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         </form>
-        <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="{% url 'main' %}"><i class="fa fa-home"></i> Home</a>
-        <a class="nav-link {% if request.path == '/cart' %}active{% endif %}" href="#"><i class="fa fa-shopping-cart"></i> Cart</a>
+        <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="{% url 'main' %}"><i class="fa fa-home"></i>Home</a>
+        <a class="nav-link {% if request.path == '/cart/' %}active{% endif %}" href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i>Cart</a>
+        </a>
 
 
           {% if user.is_authenticated %}
-          <a class="nav-link active" href=""><i class="fa fa-user-secret"></i> Hi, {{request.user.username}}</a>
-        <a class="nav-link active" href="{% url 'logout' %}"><i class="fa fa-user-secret"></i> Logout</a>
+            <a class="nav-link active" href=""><i class="fa fa-user-secret"></i>Hi, {{request.user.username}}</a>
+            <a class="nav-link {% if request.path == '/favpage' %}active{% endif %}" href="{% url 'favpage' %}"><i class="fa fa-heart"></i>Faviourte
+            <a class="nav-link {% if request.path == '/logout' %}active{% endif %}" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>Logout</a>
           {% else %}
-              <a class="nav-link {% if request.path == '/register' %}active{% endif %}" href="{% url 'register' %}"><i class="fa fa-user"></i> SignUp</a>
-          <a class="nav-link {% if request.path == '/login' %}active{% endif %}" href="{% url 'login' %}"><i class="fa fa-user-secret"></i>Login</a>
+            <a class="nav-link {% if request.path == '/register' %}active{% endif %}" href="{% url 'register' %}"><i class="fa fa-user"></i>SignUp</a>
+            <a class="nav-link {% if request.path == '/login' %}active{% endif %}" href="{% url 'login' %}"><i class="fa fa-sign-in"></i>Login</a>
           {% endif %}
 
       </ul>
     </div>
-
+    
   </div>
 </nav>

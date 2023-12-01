@@ -25,7 +25,7 @@
                              <div class="row mb-3">
                             <label for="" class="col-sm-3 col-form-label">Username</label>
                                 <div class="col-sm-9">
-                            <input type="text" name="username" class="form-control">
+                            <input type="text" name="username" class="form-control" placeholder="Enter User Name">
                              {% if form.errors.username %}
                              <label class="text-danger">{{ form.errors.username }}</label>
                              {% endif %}
@@ -35,7 +35,7 @@
                              <div class="row mb-3">
                             <label for="" class="col-sm-3 col-form-label">First Name</label>
                                 <div class="col-sm-9">
-                            <input type="text" name="first_name" class="form-control">
+                            <input type="text" name="first_name" class="form-control" placeholder="Enter First Name">
                              {% if form.errors.first_name %}
                              <label class="text-danger">{{ form.errors.first_name }}</label>
                              {% endif %}
@@ -45,7 +45,7 @@
                             <div class="row mb-3">
                             <label for="" class="col-sm-3 col-form-label">Last Name</label>
                                 <div class="col-sm-9">
-                            <input type="text" name="last_name" class="form-control">
+                            <input type="text" name="last_name" class="form-control" placeholder="Enter Last Name">
                              {% if form.errors.last_name %}
                              <label class="text-danger">{{ form.errors.last_name }}</label>
                              {% endif %}
@@ -55,7 +55,7 @@
                          <div class="row mb-3">
                             <label for="" class="col-sm-3 col-form-label">Email</label>
                                 <div class="col-sm-9">
-                            <input type="email" name="email" class="form-control">
+                            <input type="email" name="email" class="form-control" placeholder="Enter Email">
                              {% if form.errors.email %}
                              <label class="text-danger">{{ form.errors.email }}</label>
                              {% endif %}
@@ -66,7 +66,7 @@
                             <div class="row mb-3">
                             <label for="" class="col-sm-3 col-form-label">Password</label>
                                 <div class="col-sm-9">
-                            <input type="password" name="password" class="form-control">
+                            <input type="password" name="password" class="form-control" placeholder="Enter Password">
                              {% if form.errors.password %}
                              <label class="text-danger">{{ form.errors.password }}</label>
                              {% endif %}
@@ -89,7 +89,7 @@
                        <div class="row mb-3">
                        <label for="phone" class="col-sm-3 col-form-label">Phone Number</label>
                        <div class="col-sm-9">
-                        <input type="text" id="phone" name="phone" class="form-control">
+                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter Phone Number">
                         {% if profile_form.errors.phone %}
                          <label class="text-danger">{{ profile_form.errors.phone }}</label>
                        {% endif %}
