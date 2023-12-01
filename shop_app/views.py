@@ -74,6 +74,26 @@ def book_detail(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
     return render(request, 'layout/book_detail.html', {'book': book})
 
+class SearchResultsView(ListView):
+    model = Book
+    template_name = 'layout/search_results.html'
+    context_object_name = 'books'
+    ordering = ['title']
+    paginate_by = 8
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        object_list = Book.objects.filter(
+            Q(title__icontains=query) | Q(book_description__icontains=query)
+            | Q(author__icontains=query)
+        )
+        return object_list
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('q')
+        return context
+
 
 
 
