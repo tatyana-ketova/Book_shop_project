@@ -8,7 +8,7 @@
 <div class="container" style="margin-top:70px;min-height:600px;">
     <div class="row">
         <div class="col-12">
-            <div class="border-bottom border-warning">
+            <div class="border-bottom border-warning border-5">
                <h5 class="mt-4" style="font-size: 20px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-weight: bold;">Login</h5>
                {% include 'basepage/message.html' %}
             </div>
@@ -20,21 +20,24 @@
                 <div class="col-6">
                     <form method="post" action="{% url 'login' %}">
                         {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="">User Name</label>
-                            <input type="text" name="username" id="username" class="form-control" placeholder="Enter username">
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-2 col-form-label">Username</label>
+                                <div class="col-sm-9">
+                                   <input type="text" name="username" class="form-control" placeholder="Enter User Name">
+                                </div>
                         </div>
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-2 col-form-label">Password</label>
+                                <div class="col-sm-9">
+                                   <input type="password" name="password" class="form-control" placeholder="Enter password">
+                                </div>
 
-                        <div class="mb-3">
-                            <label for="">Password</label>
-                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
-
-                           
-                        </div>
+                        
                         <div class="mb-3">
                             <button type="submit" class="btn btn-warning">Login</button>
                         </div>
                     </form>
+                    <p class = "my-2">Already user? <a href ="{% url 'register' %}">Sign Up</a></p>
                 </div>
             </div>
         </div>

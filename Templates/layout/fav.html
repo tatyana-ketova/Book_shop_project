@@ -1,0 +1,33 @@
+{% extends 'layout/index.html' %}
+{% block title %}
+    Favourite | Books Web Shopping | {{ book.title }}
+{% endblock title %}
+{% block content %}
+<section class="bg-light py-4 my-5" style="min-height:600px">
+    <div class="container">
+        <div class="row">
+            <h5 class="mb-3">Favourite Items</h5>
+            <hr class="border border-warning border-5">
+        </div>
+        <table class="table">
+            <tr>
+                <th>Image</th>
+                <th>Book Name</th>
+                <th>Cost</th>
+                <th>Remove </th>
+
+            </tr>
+             {% for item in fav %}
+             <tr>
+                 <td><img src="{{item.book.image.url}}" height="75px" alt="{{item.book.title}}"> </td>
+                 <td>{{item.book.title}}</td>
+                 <td>{{item.book.price | stringformat:'d'}}</td>
+                 <td><a href="{% url 'remove_fav' item.id %}" onclick="return confirm('Are you sure? To Remove')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>Remove</a></td>
+             </tr>
+             {% endfor %}
+
+        </table>
+
+    </div>
+</section>
+{% endblock %}
