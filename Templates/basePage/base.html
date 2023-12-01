@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-warning fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"><h5>ThisBooks.com</h5></a>
+    <a class="navbar-brand" href="{% url 'main' %}" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"><h5>ThisBook.com</h5></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,8 +10,8 @@
         <form class="d-flex" role="search" action="{% url 'main' %}" method="get">
           <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         </form>
-        <a class="nav-link active" aria-current="page" href="{% url 'main' %}"><i class="fa fa-home"></i>Home</a>
-        <a class="nav-link" href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i>Cart</a>
+        <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="{% url 'main' %}"><i class="fa fa-home"></i>Home</a>
+        <a class="nav-link {% if request.path == '/cart' %}active{% endif %}" href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i>Cart</a>
         </a>
 
 
@@ -20,10 +20,10 @@
             <a class="nav-link" href="{% url 'favpage' %}"><i class="fa fa-heart"></i>Faviourte
             <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>Logout</a>
           {% else %}
-            <a class="nav-link" href="{% url 'register' %}"><i class="fa fa-user"></i>SignUp</a>
-            <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in"></i>Login</a>
+            <a class="nav-link " href="{% url 'register' %}"><i class="fa fa-user"></i>SignUp</a>
+            <a class="nav-link {% if request.path == '/login' %}active{% endif %}" href="{% url 'login' %}"><i class="fa fa-sign-in"></i>Login</a>
           {% endif %}
-           
+
       </ul>
     </div>
     

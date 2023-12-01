@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded",function(event){
     const btnCart = document.getElementById("btnCart");
     const btnFav = document.getElementById("btnFav");
 
-        
+
     btnPlus.addEventListener("click",function(){
         let qty=parseInt(txtQty.value,10);
         qty=isNaN(qty)?0:qty;
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded",function(event){
             qty++;
             txtQty.value=qty;
         }
-    }); 
+    });
     btnMinus.addEventListener("click",function(){
         let qty=parseInt(txtQty.value,10);
         qty=isNaN(qty)?0:qty;
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded",function(event){
             qty--;
             txtQty.value=qty;
         }
-    }); 
+    });
     btnCart.addEventListener("click",function(){
         let qty=parseInt(txtQty.value,10);
         qty=isNaN(qty)?0:qty;
@@ -87,15 +87,15 @@ document.addEventListener("DOMContentLoaded",function(event){
             },
             body: JSON.stringify(postObj)
             }).then(response => {
-                return response.json(); 
+                return response.json();
             }).then(data => {
-                console.log(data);  
+                console.log(data);
                 alert(data['status']);
             });
         }else{
             alert("please Enter the Quantity");
             }
-    }); 
+    });
 
     btnFav.addEventListener("click",function(){
         let postObj={
@@ -112,14 +112,14 @@ document.addEventListener("DOMContentLoaded",function(event){
             },
             body: JSON.stringify(postObj)
             }).then(response => {
-                return response.json(); 
+                return response.json();
             }).then(data => {
-                console.log(data);  
+                console.log(data);
                 alert(data['status']);
         });
-        
-    }); 
-      
+
+    });
+
 });
 </script>
 

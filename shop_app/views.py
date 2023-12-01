@@ -57,6 +57,7 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('main'))
 
+
 def register(request):
     registered = False
 
@@ -65,19 +66,24 @@ def register(request):
         profile_form = Userprofile(data=request.POST)
 
         if form.is_valid() and profile_form.is_valid():
+            password = form.cleaned_data['password']
+            confirm_password = form.cleaned_data['confirm_password']
 
-            user = form.save()
-            user.set_password(user.password)
-            user.save()
+            user = form.save(commit=False)
 
-            profile = profile_form.save(commit=False)
-            profile.user = user
+            if password == confirm_password:
+                user.set_password(password)
+                user.save()
 
+                profile = profile_form.save(commit=False)
+                profile.user = user
+                profile.save()
 
-            profile.save()
-            registered = True
-            messages.success(request,'Registeration Success you can Login Now!')
-            return redirect('login')
+                registered = True
+                messages.success(request, 'Registration successful. You can now login.')
+                return redirect('login')
+            else:
+                messages.error(request, 'Passwords do not match.')
 
         else:
             print(form.errors, profile_form.errors)
@@ -90,37 +96,31 @@ def register(request):
 
 
 def user_login(request):
-    if request.user.is_authenticated:
-        return redirect('main')
-    else:
-        if request.method == 'POST':
+    if request.method == 'POST':
 
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            user = authenticate(request, username=username, password=password)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
 
-            print("Username: {} and password: {}".format(username, password))
+        print("Username: {} and password: {}".format(username, password))
 
-            if user:
-                if user.is_active:
-                    login(request, user)
+        if user:
+            if user.is_active:
+                login(request, user)
 
-                    print("Username: {} and password: {}".format(username, password))
-                    messages.success(request,"You have logged in successfully")
+                messages.success(request, "You have logged in successfully")
 
-                    return redirect('main')
+                return HttpResponseRedirect(reverse('main'))
 
-
-                else:
-                    return HttpResponse('Account not active')
             else:
-                print("Someone try to login and failed")
-                print("Username:{} and password{}".format(username, password))
-                messages.error(request,"invalid login and password")
-                return redirect('login')
-
+                return HttpResponse('Account not active')
         else:
-            return render(request, 'layout/login.html', {})
+
+            messages.success(request, "invalid login and password")
+            return HttpResponseRedirect(reverse('login'))  # i need to add it to main
+
+    else:
+        return render(request, 'layout/login.html', {})
 
 
 def add_to_cart(request):
